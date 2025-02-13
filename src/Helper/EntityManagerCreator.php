@@ -2,8 +2,11 @@
 
 namespace Alura\Doctrine\Helper;
 
+use Doctrine\DBAL\Logging\Middleware;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMSetup;
+use Symfony\Component\Console\Logger\ConsoleLogger;
+use Symfony\Component\Console\Output\ConsoleOutput;
 
 class EntityManagerCreator
 {
@@ -13,6 +16,10 @@ class EntityManagerCreator
 			[__DIR__."/.."],
 			true,
 		);
+        $output = new ConsoleOutput(ConsoleOutput::VERBOSITY_DEBUG);
+        $logger = new ConsoleLogger($output);
+        $logMiddleware = new Middleware($logger);
+        $config->setMiddlewares([$logMiddleware]);
 
 		$conn = [
 			'driver' => 'pdo_sqlite',
