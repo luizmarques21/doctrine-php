@@ -36,6 +36,6 @@ foreach ($studentList as $student) {
 }
 
 $studentClass = Student::class;
-$dql = "SELECT COUNT(student) FROM $studentClass student";
-$count = $entityManager->createQuery($dql)->getSingleScalarResult();
+$dql = "SELECT COUNT(student) FROM $studentClass student WHERE student.phones IS EMPTY";
+$count = $entityManager->createQuery($dql)->enableResultCache(846000)->getSingleScalarResult();
 echo $count . PHP_EOL;
